@@ -5,12 +5,14 @@
 #include "XOPlayer.h"
 
 const int tranformCharToInt = 48;
+const int sideLength = 3;
+const int countCells = 9;
 
 void BuildTree(TreeNode& node)
 {
-    for (int i = 0; i < 9; i++)
+    for (int i = 0; i < countCells; i++)
     {
-        int row = i / 9; int column = i % 9;
+        int row = i / countCells; int column = i % countCells;
         auto condition = node.value()->operator()(row, column);
         if (condition == PlayField::cellCondition::csEmpty)
         {
@@ -36,9 +38,9 @@ void BuildTree(TreeNode& node)
 
 void printGameField(const PlayField pf)
 {
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < sideLength; i++)
     {
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < sideLength; j++)
         {
             if (pf(i, j) == PlayField::cellCondition::csCross)
                 cout << " X";
@@ -96,7 +98,7 @@ void GamePlay(TreeNode& rootNode)
         cin.ignore(100, '\n');
         if (sel == 'x' || sel == 'X')
             sel_player = 0;
-        else if (sel == 'o' || sel == 'O' || sel =='0')
+        else if (sel == 'o' || sel == 'O' || sel == '0')
             sel_player = 1;
         else
         {
@@ -125,7 +127,7 @@ void GamePlay(TreeNode& rootNode)
 int main()
 {
     cout << "  0 1 2" << endl;
-    for (int i = 0; i < 3; i++)
+    for (int i = 0; i < sideLength; i++)
         cout << i << " -" << " -" << " -" << endl;
     cout << "Please, wait..." << endl;
     TreeNode rootNode(nullptr, PlayField());
